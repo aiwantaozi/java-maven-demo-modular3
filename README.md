@@ -24,9 +24,32 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <!-- 父pom中引入有漏洞的依赖 -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+  </dependencies>
 ```
 
 ### 子模块 pom.xml
+
+Module 1:
+
+```xml
+
+  <!--子pom 中重写依赖成没有漏洞的版本 -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.18.0</version>
+    </dependency>
+  </dependencies>
+```
 
 Module 2:
 
