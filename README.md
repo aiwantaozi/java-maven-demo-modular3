@@ -14,25 +14,16 @@
   <!-- pom 打包方式代表父工程 -->
   <packaging>pom</packaging>
 
-  <!-- 父pom中把依赖通过dependencyManagement引入，表示子pom可能会用到的依赖 -->
+  <!-- 父pom中引入有漏洞的依赖配置，表示子pom可能会用到的依赖 -->
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>sevlet-api</artifactId>
-        <version>2.5</version>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.12.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <!-- 父pom中引入有漏洞的依赖 -->
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.12.0</version>
-    </dependency>
-  </dependencies>
 ```
 
 ### 子模块 pom.xml
@@ -41,7 +32,7 @@ Module 1:
 
 ```xml
 
-  <!--子pom 中重写依赖成没有漏洞的版本 -->
+  <!--子pom中重写依赖成没有漏洞的版本 -->
   <dependencies>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -71,6 +62,11 @@ Module 2:
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
+    </dependency>
+    <!--继承父pom有漏洞的版本-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
     </dependency>
   </dependencies>
 ```
